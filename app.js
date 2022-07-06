@@ -5,7 +5,7 @@ import os from "os";
 
 import express from "express";
 import multer from "multer";
-import sequelize from "./utilities/database.js";
+import conn from "./utils/database.js";
 import helmet from "helmet";
 import compression from "compression";
 import dotenv from "dotenv";
@@ -25,11 +25,7 @@ import { corsError } from "./middleware/error-handlers/cors-error.js";
 import { centralError } from "./middleware/error-handlers/central-error.js";
 
 //all routes imported here
-import authenticationRoutes from "./routes/authentication-routes.js";
-import administratorRoutes from "./routes/administrator-routes.js";
-import userRoutes from "./routes/user-routes.js";
-import sellerRoutes from "./routes/seller-routes.js";
-import buyerRoutes from "./routes/buyer-routes.js";
+import authRoutes from "./routes/authRoutes.js";
 
 if (cluster.isMaster) {
   console.log(`Master ${process.pid} is running`);
@@ -109,20 +105,12 @@ if (cluster.isMaster) {
   );
 
   app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/icons", express.static(path.join(__dirname, "images")));
+  app.use("/icons", express.static(path.join(__dirname, "images")));
   //handle cors error
   app.use(corsError);
 
   //all routes entrypoint here
-  app.use("/auth", authenticationRoutes);
-
-  app.use("/administrator", administratorRoutes);
-
-  app.use("/seller", sellerRoutes);
-
-  app.use("/buyer", buyerRoutes);
-
-  app.use("/user", userRoutes);
+  app.use("/auth", authRoutes);
 
   app.use(helmet());
   app.use(compression());
@@ -131,12 +119,9 @@ app.use("/icons", express.static(path.join(__dirname, "images")));
   app.use(centralError);
 
   // sync with database
-  sequelize
-    .sync()
+  conn
     .then(() => {
-      app.listen(port);
+      app.listen(port, () => console.log(`Connected and Running on ${port}`));
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((e) => console.log(e.message));
 }
