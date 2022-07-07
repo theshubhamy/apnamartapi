@@ -4,15 +4,14 @@ import bcrypt from "bcryptjs";
 
 //models
 import User from "../../../models/user.js";
-import { generateOTP } from "../../../helpers/generate-otp.js";
-import { sendOtp } from "../../../helpers/emailSendOtp.js";
+
 //helpers
 import { validationErrorHandler } from "../../../helpers/validation-error-handler.js";
 
 export const adminLoginEmail = async (req, res, next) => {
   validationErrorHandler(req, next);
   const { email, password } = req.body;
-  const otp = Number.parseInt(generateOTP(6));
+ 
   try {
     const admin = await User.findOne({
       email,
