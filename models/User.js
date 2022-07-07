@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema({
     unique: true,
     required: true,
   },
-  phone: { type: String,unique:true, required: true },
+  phone: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   otp: { type: String, required: false },
   isAdmin: { type: Boolean, default: false },
@@ -15,6 +15,7 @@ const userSchema = mongoose.Schema({
   isActive: { type: Boolean, default: false },
   token: { type: String, required: false },
   refreshToken: { type: String, required: false },
+  otpExpiryDate: { type: Date, required: false },
   address: [
     {
       street: String,

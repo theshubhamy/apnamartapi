@@ -5,7 +5,7 @@ import os from "os";
 
 import express from "express";
 import multer from "multer";
-import conn from "./utils/database.js";
+import conn from "./config/database.js";
 import helmet from "helmet";
 import compression from "compression";
 import dotenv from "dotenv";
@@ -25,7 +25,7 @@ import { corsError } from "./middleware/error-handlers/cors-error.js";
 import { centralError } from "./middleware/error-handlers/central-error.js";
 
 //all routes imported here
-import authRoutes from "./routes/authRoutes.js";
+import authRoutes from "./routes/authentication-routes.js";
 
 if (cluster.isMaster) {
   console.log(`Master ${process.pid} is running`);
@@ -95,7 +95,7 @@ if (cluster.isMaster) {
     }).fields([
       {
         name: "image",
-        maxCount: 1,
+        maxCount: 5,
       },
       {
         name: "icon",

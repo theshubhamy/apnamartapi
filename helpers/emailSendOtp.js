@@ -6,9 +6,14 @@ let defaultClient = SibApiV3Sdk.ApiClient.instance;
 // Configure API key authorization: api-key
 let apiKey = defaultClient.authentications["api-key"];
 apiKey.apiKey = process.env.SIB_API_KEY;
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix['api-key'] = "Token"
 
+// Configure API key authorization: partner-key
 let partnerKey = defaultClient.authentications["partner-key"];
 partnerKey.apiKey = process.env.SIB_API_KEY;
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//partnerKey.apiKeyPrefix['partner-key'] = "Token"
 
 let apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
@@ -17,7 +22,7 @@ let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
 export const sendOtp = async (name, email, otp) => {
   try {
     const response = await axios.post(
-      "https://api.sendinblue.com/v3/smtp/mail",
+      "https://api.sendinblue.com/v3/smtp/email",
       {
         sender: {
           name: "Apna Mart support",
@@ -49,8 +54,19 @@ export const sendOtp = async (name, email, otp) => {
       }
     );
   } catch (err) {
-    if (!err.statusCode) {
-      err.statusCode = 500;
-    }
+    sendSmtpEmail.subject = `Apna Mart Account Verification Code!`;
+    sendSmtpEmail.sender = {
+      name: "Apna Mart SUPPORT",
+      email: "devshubhamyadav@gmail.com",
+    };
+    sendSmtpEmail.to = [{ email: email, name: name }];
+    sendSmtpEmail.replyTo = {
+      email: "devshubhamyadav@gmail.com",
+      name: "Apna Mart SUPPORT",
+    };
+    sendSmtpEmail.params = { NAME: name };
+    sendSmtpEmail.templateId = 4;
+    await apiInstance.sendTransacEmail(sendSmtpEmail);
+    console.log(error);
   }
 };
