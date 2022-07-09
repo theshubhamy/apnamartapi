@@ -110,6 +110,11 @@ if (cluster.isMaster) {
   app.use(corsError);
 
   //all routes entrypoint here
+  app.get("/", (req, res) => {
+    res.status(200).json({
+      msg: "Thanks for your visit",
+    });
+  });
   app.use("/auth", authRoutes);
 
   app.use(helmet());
