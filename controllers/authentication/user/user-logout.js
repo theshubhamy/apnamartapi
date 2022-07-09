@@ -1,5 +1,5 @@
 //models
-import User from "../../../models/user.js";
+import User from "../../../models/User.js";
 
 export const userLogout = async(req, res, next) => {
   try{

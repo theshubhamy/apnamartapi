@@ -1,4 +1,4 @@
-import User from "../../../models/user.js";
+import User from "../../../models/User.js";
 import { validationErrorHandler } from "../../../helpers/validation-error-handler.js";
 export const resetPassword = async (req, res, next) => {
   validationErrorHandler(req, next);
