@@ -11,7 +11,7 @@ import { userSignupVerification } from "../controllers/authentication/user/user-
 import { userLoginEmail } from "../controllers/authentication/user/user-login-email.js";
 //admin login
 import { adminLoginEmail } from "../controllers/authentication/admin/admin-login-email.js";
-import { adminLoginVerification } from "../controllers/authentication/admin/admin-login-verification.js";
+
 
 import { adminLogout } from "../controllers/authentication/admin/admin-logout.js";
 import { userLogout } from "../controllers/authentication/user/user-logout.js";
@@ -66,19 +66,6 @@ router.post(
       .withMessage("Minimum 6 characters"),
   ],
   adminLoginEmail
-);
-//ADMIN LOGin OTP verification
-router.post(
-  "/administrator/login/otp-verification",
-  [
-    body("email").isEmail().withMessage("Should be in a valid email format"),
-    body("otp")
-      .trim()
-      .isInt()
-      .isLength({ min: 6 })
-      .withMessage("OTP must be an integer and of 6 digits"),
-  ],
-  adminLoginVerification
 );
 
 //USER SIGNUP USING PHONE
