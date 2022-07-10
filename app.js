@@ -9,7 +9,14 @@ import conn from "./config/database.js";
 import helmet from "helmet";
 import compression from "compression";
 import dotenv from "dotenv";
+//all error controllers imported here
+import { corsError } from "./middleware/error-handlers/cors-error.js";
+import { centralError } from "./middleware/error-handlers/central-error.js";
 
+//all routes imported here
+import authRoutes from "./routes/authRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 const cpu = os.cpus().length;
 
 if (process.env.NODE_ENV !== "production") {
@@ -19,13 +26,6 @@ if (process.env.NODE_ENV !== "production") {
 const port = process.env.PORT || 3300;
 
 const app = express();
-
-//all error controllers imported here
-import { corsError } from "./middleware/error-handlers/cors-error.js";
-import { centralError } from "./middleware/error-handlers/central-error.js";
-
-//all routes imported here
-import authRoutes from "./routes/authRoutes.js";
 
 if (cluster.isMaster) {
   console.log(`Master ${process.pid} is running`);
@@ -109,13 +109,15 @@ if (cluster.isMaster) {
   //handle cors error
   app.use(corsError);
 
-  //all routes entrypoint here
   app.get("/", (req, res) => {
     res.status(200).json({
-      msg: "Thanks for your visit",
+      msg: "Server is running🔥🔥🔥",
     });
   });
+  //all routes entrypoint here
   app.use("/auth", authRoutes);
+  app.use("/admin", adminRoutes);
+  app.use("/user", userRoutes);
 
   app.use(helmet());
   app.use(compression());

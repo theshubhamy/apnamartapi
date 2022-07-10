@@ -14,24 +14,12 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  highlights: [
-    {
-      type: String,
-      required: true,
-    },
-  ],
-  specifications: [
-    {
-      title: {
-        type: String,
-        required: true,
-      },
-      description: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
+  highlights: {
+    type: String,
+    required: true,
+  },
+
+  specifications: { type: String, required: true },
   price: {
     type: Number,
     required: true,
@@ -41,32 +29,12 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  images: [
-    {
-      public_id: {
-        type: String,
-        required: true,
-      },
-      url: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
+  imageUrl: { type: String, required: true },
   brand: {
-    name: {
+    brandName: { type: String, required: true },
+    brandUrl: {
       type: String,
       required: true,
-    },
-    logo: {
-      public_id: {
-        type: String,
-        required: true,
-      },
-      url: {
-        type: String,
-        required: true,
-      },
     },
   },
   category: {
@@ -78,39 +46,12 @@ const productSchema = new mongoose.Schema({
     required: true,
     default: 1,
   },
-  warranty: {
-    type: Number,
-    default: 0,
-  },
+
   ratings: {
     type: Number,
     default: 0,
   },
-  numOfReviews: {
-    type: Number,
-    default: 0,
-  },
-  reviews: [
-    {
-      user: {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
-        required: true,
-      },
-      name: {
-        type: String,
-        required: true,
-      },
-      rating: {
-        type: Number,
-        required: true,
-      },
-      comment: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
+
   isActive: { type: Boolean, default: true },
   isDeleted: { type: Boolean, default: false },
   isDealofTheDay: { type: Boolean, default: false },
