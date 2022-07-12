@@ -7,7 +7,7 @@ import { SearchProducts } from "../controllers/product/SearchProducts.js";
 const router = express.Router();
 
 router.get("/get-all-products", getAllProducts);
-router.get("/get-product-details/:id", getProductDetails);
+router.get("/get-product-details/:slug", getProductDetails);
 router.get("/search-products", SearchProducts);
 
 export default router;
