@@ -2,10 +2,66 @@ import express from "express";
 import { body } from "express-validator";
 import { isAdministrator } from "../middleware/is-administrator.js";
 //controllers
+//products
 import { CreateProduct } from "../controllers/product/Create-Product.js";
-
+//brands
+import { CreateBrand } from "../controllers/brand/create-brand.js";
+import { getAllBrands } from "../controllers/brand/get-all-brand.js";
+//category
+import { CreateCategory } from "../controllers/category/create-category.js";
+import { getAllCategories } from "../controllers/category/get-all-categories.js";
 const router = express.Router();
+/********************brand Routes **************************/
+//create brand
+router.post(
+  "/create-brand",
+  isAdministrator,
+  [
+    body("name")
+      .not()
+      .isEmpty()
+      .trim()
+      .escape()
+      .withMessage("name is required"),
+    body("description")
+      .not()
+      .isEmpty()
+      .trim()
+      .isLength({ min: 20 })
+      .escape()
+      .withMessage("Description is required"),
+  ],
+  CreateBrand
+);
+//get all brands
+router.get("/get-all-brands", isAdministrator, getAllBrands);
 
+/*************************Category Routes***************************************/
+//create category
+router.post(
+  "/create-category",
+  isAdministrator,
+  [
+    body("name")
+      .not()
+      .isEmpty()
+      .trim()
+      .escape()
+      .withMessage("name is required"),
+    body("description")
+      .not()
+      .isEmpty()
+      .trim()
+      .isLength({ min: 20 })
+      .escape()
+      .withMessage("Description is required"),
+  ],
+  CreateCategory
+);
+router.get("/get-all-categories", isAdministrator, getAllCategories);
+
+/*********************Product Routes********************************/
+//craete product
 router.post(
   "/create-product",
   isAdministrator,

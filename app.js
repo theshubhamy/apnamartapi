@@ -117,7 +117,7 @@ if (cluster.isMaster) {
   //all routes entrypoint here
   app.use("/auth", authRoutes);
   app.use("/admin", adminRoutes);
-  app.use("/user", userRoutes);
+  app.use("/app", userRoutes);
 
   app.use(helmet());
   app.use(compression());
