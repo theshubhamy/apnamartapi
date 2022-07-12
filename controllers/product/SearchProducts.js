@@ -1,5 +1,5 @@
 import Product from "../../models/Product.js";
-import SearchFeatures from "../../helpers/SearchFeatures.js";
+import SearchFeatures from "../../helpers/searchFeatures.js";
 import { validationErrorHandler } from "../../helpers/validation-error-handler.js";
 export const SearchProducts = async (req, res, next) => {
   validationErrorHandler(req, next);
