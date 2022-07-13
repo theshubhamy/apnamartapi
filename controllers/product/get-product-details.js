@@ -5,7 +5,7 @@ export const getProductDetails = async (req, res, next) => {
   validationErrorHandler(req, next);
   try {
     const slug = req.params.slug;
-    const product = await Product.find({ slug });
+    const product = await Product.findOne({ slug });
     if (!product) {
       const error = new Error("Product Details not found");
       error.statusCode = 404;
