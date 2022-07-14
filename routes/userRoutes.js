@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get("/get-all-products", getAllProducts);
 router.get("/get-product-details/:slug", getProductDetails);
-router.get("/get-product-byid/:id", getProductById);
+router.get("/get-product-byid/:_id", getProductById);
 router.get("/search-products", SearchProducts);
 
 export default router;
