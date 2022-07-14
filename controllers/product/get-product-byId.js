@@ -4,8 +4,8 @@ import { validationErrorHandler } from "../../helpers/validation-error-handler.j
 export const getProductById = async (req, res, next) => {
   validationErrorHandler(req, next);
   try {
-    const id = req.params.id;
-    const product = await Product.findById(id);
+    const _id = req.params.id;
+    const product = await Product.findById(_id);
     if (!product) {
       const error = new Error("Product Details not found");
       error.statusCode = 404;
