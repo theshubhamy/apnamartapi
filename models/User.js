@@ -16,17 +16,13 @@ const userSchema = mongoose.Schema({
   token: { type: String, required: false },
   refreshToken: { type: String, required: false },
   otpExpiryDate: { type: Date, required: false },
-  address: [
-    {
-      street: String,
-      landmark: String,
-      pinCode: String,
-      city: String,
-      state: String,
-      country: String,
-      pinCode: String,
-    },
-  ],
+  address: {
+    streetAddress: String,
+    city: String,
+    state: String,
+    country: String,
+    zip: String,
+  },
 });
 
 const User = mongoose.model("user", userSchema);
