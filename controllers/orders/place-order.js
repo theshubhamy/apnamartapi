@@ -5,8 +5,8 @@ export const PlaceOrder = async (req, res, next) => {
   const {
     orderedProduct,
     shippingAddress,
-    paymentMethod,
-    paymentResult,
+    razorpay,
+    paymentStatus,
     totalAmount,
   } = req.body;
   try {
@@ -17,11 +17,10 @@ export const PlaceOrder = async (req, res, next) => {
       userPhone: req.phone,
       orderedProduct,
       shippingAddress,
-      paymentMethod,
-      paymentResult,
+      razorpay,
       totalAmount,
+      paymentStatus,
       orderStatus: "Processing",
-      isPaid: false,
       isDelivered: false,
     });
     await order.save();

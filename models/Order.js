@@ -19,19 +19,7 @@ const orderSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    orderedProduct: [
-      {
-        productId: {
-          type: mongoose.Schema.ObjectId,
-          required: true,
-          ref: "Product",
-        },
-        name: { type: String, required: true },
-        quantity: { type: Number, required: true },
-        image: { type: String, required: true },
-        sellingPrice: { type: Number, required: true },
-      },
-    ],
+    orderedProduct: Object,
     shippingAddress: Object,
     razorpay: {
       paymentId: { type: String },
@@ -50,24 +38,13 @@ const orderSchema = mongoose.Schema(
       default: "Processing",
       required: true,
     },
-    paymentMethod: {
-      type: String,
-      required: true,
-    },
+
     totalAmount: {
       type: Number,
       required: true,
       default: 0.0,
     },
-    isPaid: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-    paidAt: {
-      type: Date,
-      required: false,
-    },
+
     isDelivered: {
       type: Boolean,
       required: true,
