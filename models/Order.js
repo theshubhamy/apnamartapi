@@ -2,22 +2,24 @@ import mongoose from "mongoose";
 
 const orderSchema = mongoose.Schema(
   {
-    userId: {
-      type: mongoose.Schema.ObjectId,
-      required: true,
-      ref: "User",
-    },
-    userName: {
-      type: String,
-      required: true,
-    },
-    userEmail: {
-      type: String,
-      required: true,
-    },
-    userPhone: {
-      type: String,
-      required: true,
+    user: {
+      userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
+      name: {
+        type: String,
+        required: true,
+      },
+      email: {
+        type: String,
+        required: true,
+      },
+      phone: {
+        type: String,
+        required: true,
+      },
     },
     orderedProduct: Object,
     shippingAddress: Object,

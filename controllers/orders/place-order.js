@@ -3,6 +3,7 @@ import { validationErrorHandler } from "../../helpers/validation-error-handler.j
 export const PlaceOrder = async (req, res, next) => {
   validationErrorHandler(req, next);
   const {
+    user,
     orderedProduct,
     shippingAddress,
     razorpay,
@@ -10,11 +11,14 @@ export const PlaceOrder = async (req, res, next) => {
     totalAmount,
   } = req.body;
   try {
+    
     const order = new Order({
-      userId: req.userId,
-      userName: req.name,
-      userEmail: req.email,
-      userPhone: req.phone,
+      user: {
+        userId: req.userId,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+      },
       orderedProduct,
       shippingAddress,
       razorpay,

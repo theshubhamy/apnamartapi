@@ -30,6 +30,9 @@ export const isUser = async (req, res, next) => {
       return next(error);
     }
     req.userId = decodedToken.id;
+    req.name = decodedToken.name;
+    req.eamil = decodedToken.email;
+    req.phone= decodedToken.phone;
     next();
   } catch (err) {
     if (!err.statusCode) {

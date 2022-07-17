@@ -31,6 +31,9 @@ export const isAdministrator = async (req, res, next) => {
     }
 
     req.userId = decodedToken.id;
+    req.name = decodedToken.name;
+    req.eamil = decodedToken.email;
+    req.phone = decodedToken.phone;
     next();
   } catch (err) {
     if (!err.statusCode) {
