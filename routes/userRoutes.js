@@ -2,6 +2,8 @@ import express from "express";
 import { isUser } from "../middleware/is-user.js";
 import { body } from "express-validator";
 //controllers
+import { CreateOrder } from "../controllers/orders/create-order.js";
+import { PlaceOrder } from "../controllers/orders/place-order.js";
 import { getAllProducts } from "../controllers/product/get-all-products.js";
 import { getProductDetails } from "../controllers/product/get-product-details.js";
 import { SearchProducts } from "../controllers/product/SearchProducts.js";
@@ -49,5 +51,7 @@ router.put(
   ],
   fillUserAddress
 );
-
+//create order
+router.post("/create-order", isUser, CreateOrder);
+router.post("/place-order", isUser, PlaceOrder);
 export default router;

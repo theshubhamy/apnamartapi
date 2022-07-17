@@ -1,33 +1,88 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const orderSchema = mongoose.Schema(
   {
-    email: {
+    userId: {
+      type: mongoose.Schema.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    userName: {
       type: String,
       required: true,
     },
-    products: [
+    userEmail: {
+      type: String,
+      required: true,
+    },
+    userPhone: {
+      type: String,
+      required: true,
+    },
+    orderedProduct: [
       {
-        productId: String,
-        quantity: {
-          type: Number,
-          default: 1,
+        productId: {
+          type: mongoose.Schema.ObjectId,
+          required: true,
+          ref: "Product",
         },
-        price: Number,
-        name: String,
+        name: { type: String, required: true },
+        quantity: { type: Number, required: true },
+        image: { type: String, required: true },
+        sellingPrice: { type: Number, required: true },
       },
     ],
-    amount: {
-      type: Number,
+    shippingAddress: Object,
+    razorpay: {
+      paymentId: { type: String },
+      orderId: { type: String },
+      signature: { type: String },
+    },
+    paymentStatus: {
+      type: String,
+      enum: ["Pending", "Success", "Failed"],
+      default: "Pending",
+      reruired: true,
+    },
+    orderStatus: {
+      type: String,
+      enum: ["Processing", "Confirmed", "Shipped", "Delivered", "Cancelled"],
+      default: "Processing",
       required: true,
     },
-    address: Object,
-    status: {
+    paymentMethod: {
       type: String,
-      default: "pending",
+      required: true,
+    },
+    totalAmount: {
+      type: Number,
+      required: true,
+      default: 0.0,
+    },
+    isPaid: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    paidAt: {
+      type: Date,
+      required: false,
+    },
+    isDelivered: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    deliveredAt: {
+      type: Date,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("order", orderSchema);
+const Order = mongoose.model("order", orderSchema);
+export default Order;
