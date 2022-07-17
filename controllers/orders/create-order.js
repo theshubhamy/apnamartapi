@@ -1,4 +1,3 @@
-import Order from "../../models/Order.js";
 import Razorpay from "razorpay";
 
 export const CreateOrder = async (req, res, next) => {
