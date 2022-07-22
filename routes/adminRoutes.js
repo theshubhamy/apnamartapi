@@ -2,6 +2,8 @@ import express from "express";
 import { body } from "express-validator";
 import { isAdministrator } from "../middleware/is-administrator.js";
 //controllers
+///userlist
+import { getAllUsers } from "../controllers/admin/user-list.js";
 //products
 import { CreateProduct } from "../controllers/product/Create-Product.js";
 //brands
@@ -10,7 +12,15 @@ import { getAllBrands } from "../controllers/brand/get-all-brand.js";
 //category
 import { CreateCategory } from "../controllers/category/create-category.js";
 import { getAllCategories } from "../controllers/category/get-all-categories.js";
+///order
+import { getAllOrders } from "../controllers/orders/order-list.js";
+import { UpdateOrderStatus } from "../controllers/orders/update-status.js";
+import { DeleteOrder } from "../controllers/orders/delete-order.js";
 const router = express.Router();
+
+/*userlist*/
+router.get("/userlist", isAdministrator, getAllUsers);
+
 /********************brand Routes **************************/
 //create brand
 router.post(
@@ -125,4 +135,13 @@ router.post(
   CreateProduct
 );
 
+/********************************Order Routes************************************/
+router.get("/get-all-orders", isAdministrator, getAllOrders);
+router.put(
+  "/update-order-status",
+  isAdministrator,
+  [body("status").not().isEmpty().withMessage("Status is required")],
+  UpdateOrderStatus
+);
+router.delete("/delete-order/:id", isAdministrator, DeleteOrder);
 export default router;
