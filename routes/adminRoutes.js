@@ -5,6 +5,7 @@ import { isAdministrator } from "../middleware/is-administrator.js";
 ///userlist
 import { getAllUsers } from "../controllers/admin/user-list.js";
 //products
+import { getAllProducts } from "../controllers/product/get-all-products.js";
 import { CreateProduct } from "../controllers/product/Create-Product.js";
 //brands
 import { CreateBrand } from "../controllers/brand/create-brand.js";
@@ -71,6 +72,7 @@ router.post(
 router.get("/get-all-categories", isAdministrator, getAllCategories);
 
 /*********************Product Routes********************************/
+router.get("/get-all-products", isAdministrator, getAllProducts);
 //craete product
 router.post(
   "/create-product",
