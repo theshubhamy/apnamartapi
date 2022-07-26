@@ -23,6 +23,11 @@ export const CreateProduct = async (req, res, next) => {
     }
 
     const brand = await Brand.findOne({ name: brandName });
+    if (!brand) {
+      const error = new Error("Brand not found");
+      error.statusCode = 404;
+      return next(error);
+    }
     const imageUrl = req.files.image[0].path;
 
     const slug = name.toLowerCase().replace(/ /g, "-");
