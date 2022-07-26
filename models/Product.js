@@ -18,7 +18,6 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
   specifications: { type: String, required: true },
   price: {
     type: Number,
@@ -30,13 +29,7 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   imageUrl: { type: String, required: true },
-  brand: {
-    brandName: { type: String, required: true },
-    brandUrl: {
-      type: String,
-      required: true,
-    },
-  },
+  brand: Object,
   category: {
     type: String,
     required: true,
@@ -51,7 +44,6 @@ const productSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-
   isActive: { type: Boolean, default: true },
   isDeleted: { type: Boolean, default: false },
   isDealofTheDay: { type: Boolean, default: false },

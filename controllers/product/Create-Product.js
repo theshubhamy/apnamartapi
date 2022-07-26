@@ -1,4 +1,5 @@
 import Product from "../../models/Product.js";
+import Brand from "../../models/Brand.js";
 import { validationErrorHandler } from "../../helpers/validation-error-handler.js";
 export const CreateProduct = async (req, res, next) => {
   validationErrorHandler(req, next);
@@ -14,20 +15,15 @@ export const CreateProduct = async (req, res, next) => {
     ratings,
     stock,
   } = req.body;
-  console.log(req);
   try {
     if (!req.files.image) {
       const error = new Error("No image provided");
       error.statusCode = 422;
       return next(error);
     }
-    if (!req.files.icon) {
-      const error = new Error("No icon provided");
-      error.statusCode = 422;
-      return next(error);
-    }
+
+    const brand = await Brand.findOne({ name: brandName });
     const imageUrl = req.files.image[0].path;
-    const brandUrl = req.files.icon[0].path;
 
     const slug = name.toLowerCase().replace(/ /g, "-");
     const sellingPrice = price - (price * discount) / 100;
@@ -42,10 +38,7 @@ export const CreateProduct = async (req, res, next) => {
       discount: discount,
       sellingPrice: sellingPrice,
       imageUrl: imageUrl,
-      brand: {
-        brandName: brandName,
-        brandUrl: brandUrl,
-      },
+      brand: brand,
       category: category,
       ratings: ratings,
       stock: stock,
