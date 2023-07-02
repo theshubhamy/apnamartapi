@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+mongoose.set('strictQuery', true);`
 const conn = mongoose.connect(
   "mongodb+srv://adminapnamart:pswdapnamart@ecommerceapi.2w1dbcy.mongodb.net/apnamartdb"
 );
