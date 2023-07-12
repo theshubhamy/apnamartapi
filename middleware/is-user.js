@@ -20,7 +20,7 @@ export const isUser = async (req, res, next) => {
       return next(error);
     }
     const user = await User.findOne({
-      eamil: decodedToken.email,
+      email: decodedToken.email,
       isVerified: true,
       isAdmin: false,
     });
